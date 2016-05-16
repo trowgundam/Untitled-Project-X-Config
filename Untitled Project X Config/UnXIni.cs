@@ -29,6 +29,15 @@ namespace Untitled_Project_X_Config
         // UnX.Display
         private bool _DisableDPIScaling = true;
 
+        // UnX.Render
+        private bool _FlipMode = true;
+
+        // UnX.Texture
+        private string _ResourceRoot = "UnX_Res";
+        private bool _Dump = false;
+        private bool _Inject = false;
+        private string _GamepadIcons = "PlayStation-Glossy.dds";
+
         // UnX.Input
         private bool _ManageCursor = true;
         private float _CursorTimeout = 0.5f;
@@ -46,7 +55,7 @@ namespace Untitled_Project_X_Config
         #endregion
 
         #region Public Properties
-        // UnX.Dispaly
+        // UnX.Display
         public bool DisableDPIScaling
         {
             get { return _DisableDPIScaling; }
@@ -55,6 +64,66 @@ namespace Untitled_Project_X_Config
                 if (value == _DisableDPIScaling) return;
                 _DisableDPIScaling = value;
                 OnPropertyChanged();
+            }
+        }
+
+        // UnX.Render
+        public bool FlipMode
+        {
+            get { return _FlipMode; }
+            set
+            {
+                if (value == _FlipMode) return;
+                _FlipMode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // UnX.Textures
+        public string ResourceRoot
+        {
+            get { return _ResourceRoot; }
+            set
+            {
+                if (value == _ResourceRoot) return;
+                _ResourceRoot = value;
+                OnPropertyChanged();
+                OnPropertyChanged("ResourceRootColor");
+                OnPropertyChanged("GamepadIconsColor");
+            }
+        }
+
+        public bool Dump
+        {
+            get { return _Dump; }
+            set
+            {
+                if (value == _Dump) return;
+                _Dump = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool Inject
+        {
+            get { return _Inject; }
+            set
+            {
+                if (value == _Inject) return;
+                _Inject = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string GamepadIcons
+        {
+            get { return _GamepadIcons; }
+            set
+            {
+                if (value == _GamepadIcons) return;
+                _GamepadIcons = value;
+                OnPropertyChanged();
+                OnPropertyChanged("GamepadIconsColor");
             }
         }
 
@@ -225,6 +294,15 @@ namespace Untitled_Project_X_Config
             // UnX.Display
             DisableDPIScaling = GetIniBooleanValue("DisableDPIScaling", "UnX.Display", true);
 
+            // UnX.Render
+            FlipMode = GetIniBooleanValue("FlipMode", "UnX.Render", true);
+
+            // UnX.Textures
+            ResourceRoot = ConfigFile.Read("ResourceRoot", "UnX.Textures");
+            Dump = GetIniBooleanValue("Dump", "UnX.Textures", false);
+            Inject = GetIniBooleanValue("Inject", "UnX.Textures", false);
+            GamepadIcons = ConfigFile.Read("GamepadIcons", "UnX.Textures");
+
             // UnX.Input
             ManageCursor = GetIniBooleanValue("ManageCursor", "UnX.Input", true);
             CursorTimeout = GetIniFloatValue("CursorTimeout", "UnX.Input", 0.5f);
@@ -241,6 +319,7 @@ namespace Untitled_Project_X_Config
             Injector = ConfigFile.Read("Injector", "UnX.System");
         }
 
+        #region "Get INI Value Methods"
         private bool GetIniBooleanValue(string Key, string Section, bool defValue)
         {
             bool result;
@@ -284,7 +363,9 @@ namespace Untitled_Project_X_Config
 
             return defValue;
         }
+        #endregion
 
+        #region "Public Color Properties"
         public System.Windows.Media.Brush UnXVersionColor
         {
             get
@@ -296,11 +377,36 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        public System.Windows.Media.Brush ResourceRootColor
+        {
+            get
+            {
+                if (Directory.Exists(GamePath + Path.AltDirectorySeparatorChar + _ResourceRoot))
+                    return System.Windows.Media.Brushes.Green;
+                else
+                    return System.Windows.Media.Brushes.Red;
+            }
+        }
+
+        public System.Windows.Media.Brush GamepadIconsColor
+        {
+            get
+            {
+                if (File.Exists(GamePath + Path.AltDirectorySeparatorChar + _ResourceRoot + Path.AltDirectorySeparatorChar + _GamepadIcons))
+                    return System.Windows.Media.Brushes.Green;
+                else
+                    return System.Windows.Media.Brushes.Red;
+            }
+        }
+        #endregion
+
+        #region "INotifyPropertyChanged Items"
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
 
         public override string ToString()
         {
@@ -308,6 +414,15 @@ namespace Untitled_Project_X_Config
 
             sb.AppendLine("[UnX.Display]");
             sb.AppendLine(string.Format("DisableDPIScaling={0}", _DisableDPIScaling.ToString()));
+
+            sb.AppendLine("[UnX.Render]");
+            sb.AppendLine(string.Format("FlipMode={0}", _FlipMode.ToString()));
+
+            sb.AppendLine("[UnX.Textures]");
+            sb.AppendLine(string.Format("ResourceRoot={0}", _ResourceRoot.ToString()));
+            sb.Append(string.Format("Dump={0}", _Dump.ToString()));
+            sb.Append(string.Format("Inject={0}", _Inject.ToString()));
+            sb.AppendLine(string.Format("GamepadIcons={0}", _GamepadIcons.ToString()));
 
             sb.AppendLine("[UnX.Input]");
             sb.AppendLine(string.Format("ManageCursor={0}", _ManageCursor.ToString()));
@@ -334,6 +449,15 @@ namespace Untitled_Project_X_Config
 
             // UnX.Display
             ConfigFile.Write("DisableDPIScaling", _DisableDPIScaling.ToString().ToLower(), "UnX.Display");
+
+            // UnX.Render
+            ConfigFile.Write("FlipMode", _FlipMode.ToString().ToLower(), "UnX.Render");
+
+            // UnX.Textures
+            ConfigFile.Write("ResourceRoot", _ResourceRoot.ToString(), "UnX.Textures");
+            ConfigFile.Write("Dump", _Dump.ToString().ToLower(), "UnX.Textures");
+            ConfigFile.Write("Inject", _Inject.ToString().ToLower(), "UnX.Textures");
+            ConfigFile.Write("GamepadIcons", _GamepadIcons.ToString(), "UnX.Textures");
 
             // UnX.Input
             ConfigFile.Write("ManageCursor", _ManageCursor.ToString().ToLower(), "UnX.Input");

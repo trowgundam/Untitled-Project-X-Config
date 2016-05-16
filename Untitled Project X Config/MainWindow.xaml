@@ -24,61 +24,115 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center">Untitled Project X Version:</TextBlock>
         <TextBlock x:Name="lblUnXVersion" Grid.Row="0" Grid.Column="1" Margin="2.5,5,5,2.5" VerticalAlignment="Center" Text="{Binding Version, Mode=OneWay}" Foreground="{Binding UnXVersionColor}" />
 
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+        <TabControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <TabItem Header="Graphics">
+                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Display</TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="Fixes DPI scaling problems in Windows 8 and 10. Recommended: Checked">Disable DPI Scaling</TextBlock>
-            <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding DisableDPIScaling, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="Fixes DPI scaling problems in Windows 8 and 10. Recommended: Checked" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Display</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="Fixes DPI scaling problems in Windows 8 and 10. Recommended: Checked">Disable DPI Scaling</TextBlock>
+                    <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding DisableDPIScaling, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="Fixes DPI scaling problems in Windows 8 and 10. Recommended: Checked" />
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Input</TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="Hide the mouse cursor intelligently. Recommended: Checked">Manage Cursor</TextBlock>
-            <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding ManageCursor, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="Hide the mouse cursor intelligently. Recommended: Checked" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Render</TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Flip Mode</TextBlock>
+                    <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding FlipMode, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="" />
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5">Cursor Timeout</TextBlock>
-            <Grid Grid.Row="4" Grid.Column="1" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Slider Grid.Column="0" Margin="2.5,2.5,2.5,2.5" Minimum="0" Maximum="60" LargeChange="0.2" TickFrequency="0.1" Value="{Binding CursorTimeout}" IsSnapToTickEnabled="True" ToolTip="Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5" />
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="15" Margin="2.5,2.5,5,2.5" Text="{Binding CursorTimeout, StringFormat=F1}" ToolTip="Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5"/>
-            </Grid>
-            
-            <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="Unhide the cursor in response to keyboard input. Recommended: Unchecked">Keys Activate Cursor</TextBlock>
-            <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding KeysActivateCursor, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="Unhide the cursor in response to keyboard input. Recommended: Unchecked" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Textures</TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Resource Root</TextBlock>
+                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ResourceRoot, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="" BorderBrush="{Binding ResourceRootColor}"/>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Dump</TextBlock>
+                    <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding Dump, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Inject</TextBlock>
+                    <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Inject, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="" />
+                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Gamepad Icons</TextBlock>
+                    <Grid Grid.Row="8" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Text="{Binding GamepadIcons, Mode=TwoWay}" Margin="2.5" VerticalAlignment="Center" ToolTip="" BorderBrush="{Binding GamepadIconsColor}"/>
+                        <Button Grid.Column="1" Margin="2.5,2.5,5,2.5" VerticalAlignment="Center" ToolTip="" MinWidth="20" Click="BrowseGamepadIcons_Click">...</Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Input">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Language</TextBlock>
-            <TextBlock Grid.Row="7" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="General Voiceover Language">Voice</TextBlock>
-            <ComboBox Grid.Row="7" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" SelectedValue="{Binding Voice}" 
-                              ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="General Voiceover Language"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="Hide the mouse cursor intelligently. Recommended: Checked">Manage Cursor</TextBlock>
+                    <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding ManageCursor, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="Hide the mouse cursor intelligently. Recommended: Checked" />
 
-            <TextBlock Grid.Row="8" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="Sound Effects Language">Sound Effects</TextBlock>
-            <ComboBox Grid.Row="8" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" SelectedValue="{Binding SoundEffects}" 
-                              ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="Sound Effects Language"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5">Cursor Timeout</TextBlock>
+                    <Grid Grid.Row="1" Grid.Column="1" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Margin="2.5,2.5,2.5,2.5" Minimum="0" Maximum="60" LargeChange="0.2" TickFrequency="0.1" Value="{Binding CursorTimeout}" IsSnapToTickEnabled="True" ToolTip="Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5" />
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="15" Margin="2.5,2.5,5,2.5" Text="{Binding CursorTimeout, StringFormat=F1}" ToolTip="Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5"/>
+                    </Grid>
 
-            <TextBlock Grid.Row="9" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="Full Motion Video Language">Video</TextBlock>
-            <ComboBox Grid.Row="9" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" SelectedValue="{Binding Video}" 
-                              ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="Full Motion Video Language"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="Unhide the cursor in response to keyboard input. Recommended: Unchecked">Keys Activate Cursor</TextBlock>
+                    <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding KeysActivateCursor, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="Unhide the cursor in response to keyboard input. Recommended: Unchecked" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Audio">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Language</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="General Voiceover Language">Voice</TextBlock>
+                    <ComboBox Grid.Row="1" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" SelectedValue="{Binding Voice}" 
+                                  ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="General Voiceover Language"/>
 
-        </Grid>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="Sound Effects Language">Sound Effects</TextBlock>
+                    <ComboBox Grid.Row="2" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" SelectedValue="{Binding SoundEffects}" 
+                                  ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="Sound Effects Language"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="Full Motion Video Language">Video</TextBlock>
+                    <ComboBox Grid.Row="3" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" SelectedValue="{Binding Video}" 
+                                  ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="Full Motion Video Language"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>

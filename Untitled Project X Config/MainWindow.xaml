@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:Untitled_Project_X_Config"
         mc:Ignorable="d"
         Title="Untitled Project X Config" Height="350" Width="348" MinHeight="350" MinWidth="348">
+    <Window.Resources>
+        <local:PropertyDescriptionConverter x:Key="PropertyDescriptionConverter" />
+    </Window.Resources>
     <Window.DataContext>
         <local:UnXIni/>
     </Window.DataContext>
@@ -47,28 +50,28 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Display</TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="Fixes DPI scaling problems in Windows 8 and 10. Recommended: Checked">Disable DPI Scaling</TextBlock>
-                    <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding DisableDPIScaling, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="Fixes DPI scaling problems in Windows 8 and 10. Recommended: Checked" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=DisableDPIScaling, Converter={StaticResource PropertyDescriptionConverter}}">Disable DPI Scaling</TextBlock>
+                    <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding DisableDPIScaling, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=DisableDPIScaling, Converter={StaticResource PropertyDescriptionConverter}}" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Render</TextBlock>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Flip Mode</TextBlock>
-                    <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding FlipMode, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=FlipMode, Converter={StaticResource PropertyDescriptionConverter}}">Flip Mode</TextBlock>
+                    <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding FlipMode, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=FlipMode, Converter={StaticResource PropertyDescriptionConverter}}" />
 
                     <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Textures</TextBlock>
-                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Resource Root</TextBlock>
-                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ResourceRoot, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="" BorderBrush="{Binding ResourceRootColor}"/>
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Dump</TextBlock>
-                    <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding Dump, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="" />
-                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Inject</TextBlock>
-                    <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Inject, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="" />
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="">Gamepad Icons</TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=ResourceRoot, Converter={StaticResource PropertyDescriptionConverter}}">Resource Root</TextBlock>
+                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ResourceRoot, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=ResourceRoot, Converter={StaticResource PropertyDescriptionConverter}}" BorderBrush="{Binding ResourceRootColor}"/>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Dump, Converter={StaticResource PropertyDescriptionConverter}}">Dump</TextBlock>
+                    <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding Dump, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Dump, Converter={StaticResource PropertyDescriptionConverter}}" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Inject, Converter={StaticResource PropertyDescriptionConverter}}">Inject</TextBlock>
+                    <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Inject, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Inject, Converter={StaticResource PropertyDescriptionConverter}}" />
+                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=GamepadIcons, Converter={StaticResource PropertyDescriptionConverter}}">Gamepad Icons</TextBlock>
                     <Grid Grid.Row="8" Grid.Column="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" Text="{Binding GamepadIcons, Mode=TwoWay}" Margin="2.5" VerticalAlignment="Center" ToolTip="" BorderBrush="{Binding GamepadIconsColor}"/>
-                        <Button Grid.Column="1" Margin="2.5,2.5,5,2.5" VerticalAlignment="Center" ToolTip="" MinWidth="20" Click="BrowseGamepadIcons_Click">...</Button>
+                        <TextBox Grid.Column="0" Text="{Binding GamepadIcons, Mode=TwoWay}" Margin="2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=GamepadIcons, Converter={StaticResource PropertyDescriptionConverter}}" BorderBrush="{Binding GamepadIconsColor}"/>
+                        <Button Grid.Column="1" Margin="2.5,2.5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=GamepadIcons, Converter={StaticResource PropertyDescriptionConverter}}" MinWidth="20" Click="BrowseGamepadIcons_Click">...</Button>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -86,21 +89,21 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="Hide the mouse cursor intelligently. Recommended: Checked">Manage Cursor</TextBlock>
-                    <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding ManageCursor, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="Hide the mouse cursor intelligently. Recommended: Checked" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=ManageCursor, Converter={StaticResource PropertyDescriptionConverter}}">Manage Cursor</TextBlock>
+                    <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding ManageCursor, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=ManageCursor, Converter={StaticResource PropertyDescriptionConverter}}" />
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5">Cursor Timeout</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=CursorTimeout, Converter={StaticResource PropertyDescriptionConverter}}">Cursor Timeout</TextBlock>
                     <Grid Grid.Row="1" Grid.Column="1" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Slider Grid.Column="0" Margin="2.5,2.5,2.5,2.5" Minimum="0" Maximum="60" LargeChange="0.2" TickFrequency="0.1" Value="{Binding CursorTimeout}" IsSnapToTickEnabled="True" ToolTip="Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5" />
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="15" Margin="2.5,2.5,5,2.5" Text="{Binding CursorTimeout, StringFormat=F1}" ToolTip="Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5"/>
+                        <Slider Grid.Column="0" Margin="2.5,2.5,2.5,2.5" Minimum="0" Maximum="60" LargeChange="0.2" TickFrequency="0.1" Value="{Binding CursorTimeout}" IsSnapToTickEnabled="True" ToolTip="{Binding ConverterParameter=CursorTimeout, Converter={StaticResource PropertyDescriptionConverter}}" />
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="15" Margin="2.5,2.5,5,2.5" Text="{Binding CursorTimeout, StringFormat=F1}" ToolTip="{Binding ConverterParameter=CursorTimeout, Converter={StaticResource PropertyDescriptionConverter}}"/>
                     </Grid>
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="Unhide the cursor in response to keyboard input. Recommended: Unchecked">Keys Activate Cursor</TextBlock>
-                    <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding KeysActivateCursor, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="Unhide the cursor in response to keyboard input. Recommended: Unchecked" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=KeysActivateCursor, Converter={StaticResource PropertyDescriptionConverter}}">Keys Activate Cursor</TextBlock>
+                    <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding KeysActivateCursor, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=KeysActivateCursor, Converter={StaticResource PropertyDescriptionConverter}}" />
                 </Grid>
             </TabItem>
             <TabItem Header="Audio">
@@ -119,17 +122,17 @@
                     </Grid.ColumnDefinitions>
                     
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Language</TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="General Voiceover Language">Voice</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Voice, Converter={StaticResource PropertyDescriptionConverter}}">Voice</TextBlock>
                     <ComboBox Grid.Row="1" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" SelectedValue="{Binding Voice}" 
-                                  ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="General Voiceover Language"/>
+                                  ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="{Binding ConverterParameter=Voice, Converter={StaticResource PropertyDescriptionConverter}}"/>
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="Sound Effects Language">Sound Effects</TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=SoundEffects, Converter={StaticResource PropertyDescriptionConverter}}">Sound Effects</TextBlock>
                     <ComboBox Grid.Row="2" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" SelectedValue="{Binding SoundEffects}" 
-                                  ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="Sound Effects Language"/>
+                                  ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="{Binding ConverterParameter=SoundEffects, Converter={StaticResource PropertyDescriptionConverter}}"/>
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="Full Motion Video Language">Video</TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Video, Converter={StaticResource PropertyDescriptionConverter}}">Video</TextBlock>
                     <ComboBox Grid.Row="3" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" SelectedValue="{Binding Video}" 
-                                  ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="Full Motion Video Language"/>
+                                  ItemsSource="{Binding Source={local:Enumeration {x:Type local:UnXLanguageCodes}}}" DisplayMemberPath="Description" SelectedValuePath="Value" ToolTip="{Binding ConverterParameter=Video, Converter={StaticResource PropertyDescriptionConverter}}"/>
                 </Grid>
             </TabItem>
         </TabControl>

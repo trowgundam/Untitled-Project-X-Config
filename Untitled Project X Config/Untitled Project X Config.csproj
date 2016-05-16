@@ -63,6 +63,7 @@
     <Compile Include="EnumerationExtension.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="MyWpfExtensions.cs" />
+    <Compile Include="PropertyDescriptionConverter.cs" />
     <Compile Include="UnXIni.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

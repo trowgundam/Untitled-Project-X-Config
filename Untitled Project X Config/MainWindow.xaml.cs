@@ -42,7 +42,7 @@ namespace Untitled_Project_X_Config
                             "Expected Version: {0}" + Environment.NewLine +
                             "Current Version: {1}" + Environment.NewLine + Environment.NewLine +
                             "Please make sure that Untitled Project X and this appliaction are up-to-date." + Environment.NewLine + Environment.NewLine +
-                            "Do you wish to continue anyways? Be aware not all settings may work.", Properties.Settings.Default.UnXVersion, dllVersion),
+                            "Do you wish to continue anyways? Be aware not all settings may work.", Properties.Settings.Default.UnXVersion, dllVersion.Substring(0, Properties.Settings.Default.UnXVersion.Length)),
                             "Untitled Project X Config", MessageBoxButton.YesNo,
                             MessageBoxImage.Warning, MessageBoxResult.No);
                         if (result == MessageBoxResult.No)

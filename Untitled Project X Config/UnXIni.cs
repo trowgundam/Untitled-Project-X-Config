@@ -56,6 +56,7 @@ namespace Untitled_Project_X_Config
 
         #region Public Properties
         // UnX.Display
+        [Description("Fixes DPI scaling problems in Windows 8 and 10. Recommended: Checked")]
         public bool DisableDPIScaling
         {
             get { return _DisableDPIScaling; }
@@ -68,6 +69,7 @@ namespace Untitled_Project_X_Config
         }
 
         // UnX.Render
+        [Description("")]
         public bool FlipMode
         {
             get { return _FlipMode; }
@@ -80,6 +82,7 @@ namespace Untitled_Project_X_Config
         }
 
         // UnX.Textures
+        [Description("The directory where Untitled Project X will look for textures or put textures in for Injecting and Dumping. Directory must be in the game directory. Recommended: UnX_Res")]
         public string ResourceRoot
         {
             get { return _ResourceRoot; }
@@ -93,6 +96,7 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("Enable texture dumping. Note this will have an adverse effect on performance. Recommended: Unchecked")]
         public bool Dump
         {
             get { return _Dump; }
@@ -104,6 +108,7 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("Enable texture injecting. Recommended: Only check when injecting textures other than Gamepad Buttons")]
         public bool Inject
         {
             get { return _Inject; }
@@ -115,6 +120,7 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("Texture file to use for FFX (X-2 not supported currently) for Gamepad Buttons. File must be in the Resource Root folder. Recommended: Personal Preference")]
         public string GamepadIcons
         {
             get { return _GamepadIcons; }
@@ -128,6 +134,7 @@ namespace Untitled_Project_X_Config
         }
 
         // UnX.Input
+        [Description("Hide the mouse cursor intelligently. Recommended: Checked")]
         public bool ManageCursor
         {
             get { return _ManageCursor; }
@@ -139,6 +146,7 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5")]
         public float CursorTimeout
         {
             get { return _CursorTimeout; }
@@ -150,6 +158,7 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("")]
         public int GamepadSlot
         {
             get { return _GamepadSlot; }
@@ -161,6 +170,7 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("Unhide the cursor in response to keyboard input. Recommended: Unchecked")]
         public bool KeysActivateCursor
         {
             get { return _KeysActivateCursor; }
@@ -173,6 +183,7 @@ namespace Untitled_Project_X_Config
         }
 
         // UnX.Language
+        [Description("General Voiceover Language")]
         public UnXLanguageCodes Voice
         {
             get { return _Voice; }
@@ -184,6 +195,7 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("Sound Effects Language")]
         public UnXLanguageCodes SoundEffects
         {
             get { return _SoundEffects; }
@@ -195,6 +207,7 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("Full Motion Video Language")]
         public UnXLanguageCodes Video
         {
             get { return _Video; }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Untitled_Project_X_Config"
         mc:Ignorable="d"
-        Title="Untitled Project X Config" Height="350" Width="348" MinHeight="350" MinWidth="348">
+        Title="Untitled Project X Config" Height="370" Width="340" MinHeight="370" MinWidth="340">
     <Window.Resources>
         <local:PropertyDescriptionConverter x:Key="PropertyDescriptionConverter" />
     </Window.Resources>
@@ -42,6 +42,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -53,22 +54,25 @@
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=DisableDPIScaling, Converter={StaticResource PropertyDescriptionConverter}}">Disable DPI Scaling</TextBlock>
                     <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding DisableDPIScaling, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=DisableDPIScaling, Converter={StaticResource PropertyDescriptionConverter}}" />
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Render</TextBlock>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=FlipMode, Converter={StaticResource PropertyDescriptionConverter}}">Flip Mode</TextBlock>
-                    <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding FlipMode, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=FlipMode, Converter={StaticResource PropertyDescriptionConverter}}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=EnableFullscreen, Converter={StaticResource PropertyDescriptionConverter}}">Enable Fullscreen</TextBlock>
+                    <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding EnableFullscreen, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=EnableFullscreen, Converter={StaticResource PropertyDescriptionConverter}}" />
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Textures</TextBlock>
-                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=ResourceRoot, Converter={StaticResource PropertyDescriptionConverter}}">Resource Root</TextBlock>
-                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ResourceRoot, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=ResourceRoot, Converter={StaticResource PropertyDescriptionConverter}}" BorderBrush="{Binding ResourceRootColor}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Render</TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=FlipMode, Converter={StaticResource PropertyDescriptionConverter}}">Flip Mode</TextBlock>
+                    <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding FlipMode, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=FlipMode, Converter={StaticResource PropertyDescriptionConverter}}" />
 
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Dump, Converter={StaticResource PropertyDescriptionConverter}}">Dump</TextBlock>
-                    <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding Dump, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Dump, Converter={StaticResource PropertyDescriptionConverter}}" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,2.5,2.5" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline">Textures</TextBlock>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=ResourceRoot, Converter={StaticResource PropertyDescriptionConverter}}">Resource Root</TextBlock>
+                    <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ResourceRoot, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=ResourceRoot, Converter={StaticResource PropertyDescriptionConverter}}" BorderBrush="{Binding ResourceRootColor}"/>
 
-                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Inject, Converter={StaticResource PropertyDescriptionConverter}}">Inject</TextBlock>
-                    <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Inject, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Inject, Converter={StaticResource PropertyDescriptionConverter}}" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Dump, Converter={StaticResource PropertyDescriptionConverter}}">Dump</TextBlock>
+                    <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Dump, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Dump, Converter={StaticResource PropertyDescriptionConverter}}" />
 
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Gamepad, Converter={StaticResource PropertyDescriptionConverter}}">Gamepad Icons</TextBlock>
-                    <ComboBox Grid.Row="8" Grid.Column="1" ItemsSource="{Binding Gamepads}" SelectedValue="{Binding Gamepad, Mode=TwoWay}" Margin="2.5,2.5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Gamepad, Converter={StaticResource PropertyDescriptionConverter}}"/>
+                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Inject, Converter={StaticResource PropertyDescriptionConverter}}">Inject</TextBlock>
+                    <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding Inject, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Inject, Converter={StaticResource PropertyDescriptionConverter}}" />
+
+                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Gamepad, Converter={StaticResource PropertyDescriptionConverter}}">Gamepad Icons</TextBlock>
+                    <ComboBox Grid.Row="9" Grid.Column="1" ItemsSource="{Binding Gamepads}" SelectedValue="{Binding Gamepad, Mode=TwoWay}" Margin="2.5,2.5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=Gamepad, Converter={StaticResource PropertyDescriptionConverter}}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Input">

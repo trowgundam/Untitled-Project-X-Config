@@ -374,31 +374,48 @@ namespace Untitled_Project_X_Config
                 ConfigFile = new Ini.IniFile(IniPath);
 
             // UnX.Display
-            ConfigFile.Write(GetKey(nameof(DisableDPIScaling)), _DisableDPIScaling.ToString().ToLower(), GetSection(nameof(DisableDPIScaling)));
+            ConfigFile.Write(GetKey(nameof(DisableDPIScaling)), GetIniFormattedString(DisableDPIScaling), GetSection(nameof(DisableDPIScaling)));
+            ConfigFile.Write(GetKey(nameof(EnableFullscreen)), GetIniFormattedString(EnableFullscreen), GetSection(nameof(EnableFullscreen)));
 
             // UnX.Render
-            ConfigFile.Write(GetKey(nameof(FlipMode)), _FlipMode.ToString().ToLower(), GetSection(nameof(FlipMode)));
+            ConfigFile.Write(GetKey(nameof(FlipMode)), GetIniFormattedString(FlipMode), GetSection(nameof(FlipMode)));
 
             // UnX.Textures
-            ConfigFile.Write(GetKey(nameof(ResourceRoot)), _ResourceRoot.ToString(), GetSection(nameof(ResourceRoot)));
-            ConfigFile.Write(GetKey(nameof(Dump)), _Dump.ToString().ToLower(), GetSection(nameof(Dump)));
-            ConfigFile.Write(GetKey(nameof(Inject)), _Inject.ToString().ToLower(), GetSection(nameof(Inject)));
-            ConfigFile.Write(GetKey(nameof(Gamepad)), _Gamepad.ToString(), GetSection(nameof(Gamepad)));
+            ConfigFile.Write(GetKey(nameof(ResourceRoot)), GetIniFormattedString(ResourceRoot), GetSection(nameof(ResourceRoot)));
+            ConfigFile.Write(GetKey(nameof(Dump)), GetIniFormattedString(Dump), GetSection(nameof(Dump)));
+            ConfigFile.Write(GetKey(nameof(Inject)), GetIniFormattedString(Inject), GetSection(nameof(Inject)));
+            ConfigFile.Write(GetKey(nameof(Gamepad)), GetIniFormattedString(Gamepad), GetSection(nameof(Gamepad)));
 
             // UnX.Input
-            ConfigFile.Write(GetKey(nameof(ManageCursor)), _ManageCursor.ToString().ToLower(), GetSection(nameof(ManageCursor)));
-            ConfigFile.Write(GetKey(nameof(CursorTimeout)), _CursorTimeout.ToString("F1"), GetSection(nameof(CursorTimeout)));
-            ConfigFile.Write(GetKey(nameof(GamepadSlot)), _GamepadSlot.ToString(), GetSection(nameof(GamepadSlot)));
-            ConfigFile.Write(GetKey(nameof(KeysActivateCursor)), _KeysActivateCursor.ToString().ToLower(), GetSection(nameof(KeysActivateCursor)));
+            ConfigFile.Write(GetKey(nameof(ManageCursor)), GetIniFormattedString(ManageCursor), GetSection(nameof(ManageCursor)));
+            ConfigFile.Write(GetKey(nameof(CursorTimeout)), GetIniFormattedString(CursorTimeout), GetSection(nameof(CursorTimeout)));
+            ConfigFile.Write(GetKey(nameof(GamepadSlot)), GetIniFormattedString(GamepadSlot), GetSection(nameof(GamepadSlot)));
+            ConfigFile.Write(GetKey(nameof(KeysActivateCursor)), GetIniFormattedString(KeysActivateCursor), GetSection(nameof(KeysActivateCursor)));
 
             // UnX.Language
-            ConfigFile.Write(GetKey(nameof(Voice)), AbbreviationAttribute.Get(_Voice), GetSection(nameof(Voice)));
-            ConfigFile.Write(GetKey(nameof(SoundEffects)), AbbreviationAttribute.Get(_SoundEffects), GetSection(nameof(SoundEffects)));
-            ConfigFile.Write(GetKey(nameof(Video)), AbbreviationAttribute.Get(_Video), GetSection(nameof(Video)));
+            ConfigFile.Write(GetKey(nameof(Voice)), GetIniFormattedString(Voice), GetSection(nameof(Voice)));
+            ConfigFile.Write(GetKey(nameof(SoundEffects)), GetIniFormattedString(SoundEffects), GetSection(nameof(SoundEffects)));
+            ConfigFile.Write(GetKey(nameof(Video)), GetIniFormattedString(Video), GetSection(nameof(Video)));
         }
         #endregion
 
         #region "Get INI Value Methods"
+        private string GetIniFormattedString(object val)
+        {
+            if (val is string)
+                return (string)val;
+            else if (val is bool)
+                return ((bool)val).ToString().ToLower();
+            else if (val is float)
+                return ((float)val).ToString("F1");
+            else if (val is int)
+                return ((int)val).ToString();
+            else if (val is UnXLanguageCodes)
+                return AbbreviationAttribute.Get((UnXLanguageCodes)val);
+            else
+                return val.ToString();
+        }
+
         private bool GetIniBooleanValue(string Key, string Section, bool defValue)
         {
             bool result;

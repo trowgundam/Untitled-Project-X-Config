@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Reflection;
 
 namespace Untitled_Project_X_Config
 {
@@ -15,6 +17,7 @@ namespace Untitled_Project_X_Config
     }
     public class UnXIni : INotifyPropertyChanged
     {
+        #region "INI File"
         public string GamePath { get; private set; }
         private string IniPath
         {
@@ -24,23 +27,25 @@ namespace Untitled_Project_X_Config
             }
         }
         private Ini.IniFile ConfigFile = null;
+        #endregion
 
         #region Private Variables
         // UnX.Display
         private bool _DisableDPIScaling = true;
+        private bool _EnableFullscreen = false;
 
         // UnX.Render
-        private bool _FlipMode = true;
+        private bool _FlipMode = false;
 
         // UnX.Texture
         private string _ResourceRoot = "UnX_Res";
         private bool _Dump = false;
         private bool _Inject = false;
-        private string _GamepadIcons = "PlayStation-Glossy.dds";
+        private string _Gamepad = "PlayStation_Glossy";
 
         // UnX.Input
         private bool _ManageCursor = true;
-        private float _CursorTimeout = 0.5f;
+        private float _CursorTimeout = 0.0f;
         private int _GamepadSlot = -1;
         private bool _KeysActivateCursor = false;
 
@@ -57,6 +62,7 @@ namespace Untitled_Project_X_Config
         #region Public Properties
         // UnX.Display
         [Description("Fixes DPI scaling problems in Windows 8 and 10. Recommended: Checked")]
+        [IniInfo("DisableDPIScaling", "UnX.Display")]
         public bool DisableDPIScaling
         {
             get { return _DisableDPIScaling; }
@@ -68,8 +74,22 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("Enable Exclusive Full Screen (EXPERIMENTAL) Recommended: Unchecked")]
+        [IniInfo("EnableFullscreen", "UnX.Display")]
+        public bool EnableFullscreen
+        {
+            get { return _EnableFullscreen; }
+            set
+            {
+                if (value == _EnableFullscreen) return;
+                _EnableFullscreen = value;
+                OnPropertyChanged();
+            }
+        }
+
         // UnX.Render
-        [Description("")]
+        [Description("Enable Flip Presentation Model. This increase performance in Window mode and increased compatiblity with some Screen Capture software. Recommended: Unchecked due to unresolved issues with the game engine.")]
+        [IniInfo("FlipMode", "UnX.Render")]
         public bool FlipMode
         {
             get { return _FlipMode; }
@@ -83,6 +103,7 @@ namespace Untitled_Project_X_Config
 
         // UnX.Textures
         [Description("The directory where Untitled Project X will look for textures or put textures in for Injecting and Dumping. Directory must be in the game directory. Recommended: UnX_Res")]
+        [IniInfo("ResourceRoot", "UnX.Textures")]
         public string ResourceRoot
         {
             get { return _ResourceRoot; }
@@ -92,11 +113,13 @@ namespace Untitled_Project_X_Config
                 _ResourceRoot = value;
                 OnPropertyChanged();
                 OnPropertyChanged("ResourceRootColor");
+                OnPropertyChanged("Gamepads");
                 OnPropertyChanged("GamepadIconsColor");
             }
         }
 
         [Description("Enable texture dumping. Note this will have an adverse effect on performance. Recommended: Unchecked")]
+        [IniInfo("Dump", "UnX.Textures")]
         public bool Dump
         {
             get { return _Dump; }
@@ -109,6 +132,7 @@ namespace Untitled_Project_X_Config
         }
 
         [Description("Enable texture injecting. Recommended: Only check when injecting textures other than Gamepad Buttons")]
+        [IniInfo("Inject", "UnX.Textures")]
         public bool Inject
         {
             get { return _Inject; }
@@ -120,21 +144,23 @@ namespace Untitled_Project_X_Config
             }
         }
 
-        [Description("Texture file to use for FFX (X-2 not supported currently) for Gamepad Buttons. File must be in the Resource Root folder. Recommended: Personal Preference")]
-        public string GamepadIcons
+        [Description("Gamepad Button Set to use. Recommended: Personal Preference")]
+        [IniInfo("Gamepad", "UnX.Textures")]
+        public string Gamepad
         {
-            get { return _GamepadIcons; }
+            get { return _Gamepad; }
             set
             {
-                if (value == _GamepadIcons) return;
-                _GamepadIcons = value;
+                if (value == _Gamepad) return;
+                _Gamepad = value;
                 OnPropertyChanged();
-                OnPropertyChanged("GamepadIconsColor");
+                OnPropertyChanged("GamepadColor");
             }
         }
 
         // UnX.Input
         [Description("Hide the mouse cursor intelligently. Recommended: Checked")]
+        [IniInfo("ManageCursor", "UnX.Input")]
         public bool ManageCursor
         {
             get { return _ManageCursor; }
@@ -147,6 +173,7 @@ namespace Untitled_Project_X_Config
         }
 
         [Description("Time (in seconds) before an inactive mouse cursor is hidden. Recommend: 0.5")]
+        [IniInfo("CursorTimeout", "UnX.Input")]
         public float CursorTimeout
         {
             get { return _CursorTimeout; }
@@ -158,7 +185,8 @@ namespace Untitled_Project_X_Config
             }
         }
 
-        [Description("")]
+        [Description("XInput controller to use when checking if a controller is present. If you do not have an XInput controller, set to -1 to disable hot-plug detection. When hot-plugging is disabled, cursor will always hide itself even if no controller is connected.")]
+        [IniInfo("GamepadSlot", "UnX.Input")]
         public int GamepadSlot
         {
             get { return _GamepadSlot; }
@@ -171,6 +199,7 @@ namespace Untitled_Project_X_Config
         }
 
         [Description("Unhide the cursor in response to keyboard input. Recommended: Unchecked")]
+        [IniInfo("KeysActivateCursor", "UnX.Input")]
         public bool KeysActivateCursor
         {
             get { return _KeysActivateCursor; }
@@ -184,6 +213,7 @@ namespace Untitled_Project_X_Config
 
         // UnX.Language
         [Description("General Voiceover Language")]
+        [IniInfo("Voice", "UnX.Language")]
         public UnXLanguageCodes Voice
         {
             get { return _Voice; }
@@ -196,6 +226,7 @@ namespace Untitled_Project_X_Config
         }
 
         [Description("Sound Effects Language")]
+        [IniInfo("SoundEffects", "UnX.Language")]
         public UnXLanguageCodes SoundEffects
         {
             get { return _SoundEffects; }
@@ -208,6 +239,7 @@ namespace Untitled_Project_X_Config
         }
 
         [Description("Full Motion Video Language")]
+        [IniInfo("Video", "UnX.Language")]
         public UnXLanguageCodes Video
         {
             get { return _Video; }
@@ -220,6 +252,7 @@ namespace Untitled_Project_X_Config
         }
 
         // UnX.System
+        [IniInfo("Version", "UnX.System")]
         public string Version {
             get { return _Version; }
             private set
@@ -230,6 +263,7 @@ namespace Untitled_Project_X_Config
                 OnPropertyChanged("UnXVersionColor");
             }
         }
+        [IniInfo("Injector", "UnX.System")]
         public string Injector {
             get { return _Injector; }
             private set
@@ -299,38 +333,70 @@ namespace Untitled_Project_X_Config
             GamePath = path;
         }
 
+        #region "Read/Save Value Methods"
         private void LoadValues()
         {
             if (ConfigFile == null)
                 ConfigFile = new Ini.IniFile(IniPath);
             
             // UnX.Display
-            DisableDPIScaling = GetIniBooleanValue("DisableDPIScaling", "UnX.Display", true);
+            DisableDPIScaling = GetIniBooleanValue(GetKey(nameof(DisableDPIScaling)), GetSection(nameof(DisableDPIScaling)), true);
+            EnableFullscreen = GetIniBooleanValue(GetKey(nameof(EnableFullscreen)), GetSection(nameof(EnableFullscreen)), false);
 
             // UnX.Render
-            FlipMode = GetIniBooleanValue("FlipMode", "UnX.Render", true);
+            FlipMode = GetIniBooleanValue(GetKey(nameof(FlipMode)), GetSection(nameof(FlipMode)), true);
 
             // UnX.Textures
-            ResourceRoot = ConfigFile.Read("ResourceRoot", "UnX.Textures");
-            Dump = GetIniBooleanValue("Dump", "UnX.Textures", false);
-            Inject = GetIniBooleanValue("Inject", "UnX.Textures", false);
-            GamepadIcons = ConfigFile.Read("GamepadIcons", "UnX.Textures");
+            ResourceRoot = ConfigFile.Read(GetKey(nameof(ResourceRoot)), GetSection(nameof(ResourceRoot)));
+            Dump = GetIniBooleanValue(GetKey(nameof(Dump)), GetSection(nameof(Dump)), false);
+            Inject = GetIniBooleanValue(GetKey(nameof(Inject)), GetSection(nameof(Inject)), false);
+            Gamepad = ConfigFile.Read(GetKey(nameof(Gamepad)), GetSection(nameof(Gamepad)));
 
             // UnX.Input
-            ManageCursor = GetIniBooleanValue("ManageCursor", "UnX.Input", true);
-            CursorTimeout = GetIniFloatValue("CursorTimeout", "UnX.Input", 0.5f);
-            GamepadSlot = GetIniIntegerValue("GamepadSlot", "UnX.Input", -1);
-            KeysActivateCursor = GetIniBooleanValue("KeysActivateCursor", "UnX.Input", false);
+            ManageCursor = GetIniBooleanValue(GetKey(nameof(ManageCursor)), GetSection(nameof(ManageCursor)), true);
+            CursorTimeout = GetIniFloatValue(GetKey(nameof(CursorTimeout)), GetSection(nameof(CursorTimeout)), 0.5f);
+            GamepadSlot = GetIniIntegerValue(GetKey(nameof(GamepadSlot)), GetSection(nameof(GamepadSlot)), -1);
+            KeysActivateCursor = GetIniBooleanValue(GetKey(nameof(KeysActivateCursor)), GetSection(nameof(KeysActivateCursor)), false);
 
             // UnX.Language
-            Voice = GetIniEnumValue<UnXLanguageCodes>("Voice", "UnX.Language", UnXLanguageCodes.JP);
-            SoundEffects = GetIniEnumValue<UnXLanguageCodes>("SoundEffects", "UnX.Language", UnXLanguageCodes.JP);
-            Video = GetIniEnumValue<UnXLanguageCodes>("Video", "UnX.Language", UnXLanguageCodes.JP);
+            Voice = GetIniEnumValue<UnXLanguageCodes>(GetKey(nameof(Voice)), GetSection(nameof(Voice)), UnXLanguageCodes.JP);
+            SoundEffects = GetIniEnumValue<UnXLanguageCodes>(GetKey(nameof(SoundEffects)), GetSection(nameof(SoundEffects)), UnXLanguageCodes.JP);
+            Video = GetIniEnumValue<UnXLanguageCodes>(GetKey(nameof(Video)), GetSection(nameof(Video)), UnXLanguageCodes.JP);
 
             // UnX.System
-            Version = ConfigFile.Read("Version", "UnX.System");
-            Injector = ConfigFile.Read("Injector", "UnX.System");
+            Version = ConfigFile.Read(GetKey(nameof(Version)), GetSection(nameof(Version)));
+            Injector = ConfigFile.Read(GetKey(nameof(Injector)), GetSection(nameof(Injector)));
         }
+
+        public void SaveValues()
+        {
+            if (ConfigFile == null)
+                ConfigFile = new Ini.IniFile(IniPath);
+
+            // UnX.Display
+            ConfigFile.Write(GetKey(nameof(DisableDPIScaling)), _DisableDPIScaling.ToString().ToLower(), GetSection(nameof(DisableDPIScaling)));
+
+            // UnX.Render
+            ConfigFile.Write(GetKey(nameof(FlipMode)), _FlipMode.ToString().ToLower(), GetSection(nameof(FlipMode)));
+
+            // UnX.Textures
+            ConfigFile.Write(GetKey(nameof(ResourceRoot)), _ResourceRoot.ToString(), GetSection(nameof(ResourceRoot)));
+            ConfigFile.Write(GetKey(nameof(Dump)), _Dump.ToString().ToLower(), GetSection(nameof(Dump)));
+            ConfigFile.Write(GetKey(nameof(Inject)), _Inject.ToString().ToLower(), GetSection(nameof(Inject)));
+            ConfigFile.Write(GetKey(nameof(Gamepad)), _Gamepad.ToString(), GetSection(nameof(Gamepad)));
+
+            // UnX.Input
+            ConfigFile.Write(GetKey(nameof(ManageCursor)), _ManageCursor.ToString().ToLower(), GetSection(nameof(ManageCursor)));
+            ConfigFile.Write(GetKey(nameof(CursorTimeout)), _CursorTimeout.ToString("F1"), GetSection(nameof(CursorTimeout)));
+            ConfigFile.Write(GetKey(nameof(GamepadSlot)), _GamepadSlot.ToString(), GetSection(nameof(GamepadSlot)));
+            ConfigFile.Write(GetKey(nameof(KeysActivateCursor)), _KeysActivateCursor.ToString().ToLower(), GetSection(nameof(KeysActivateCursor)));
+
+            // UnX.Language
+            ConfigFile.Write(GetKey(nameof(Voice)), AbbreviationAttribute.Get(_Voice), GetSection(nameof(Voice)));
+            ConfigFile.Write(GetKey(nameof(SoundEffects)), AbbreviationAttribute.Get(_SoundEffects), GetSection(nameof(SoundEffects)));
+            ConfigFile.Write(GetKey(nameof(Video)), AbbreviationAttribute.Get(_Video), GetSection(nameof(Video)));
+        }
+        #endregion
 
         #region "Get INI Value Methods"
         private bool GetIniBooleanValue(string Key, string Section, bool defValue)
@@ -378,7 +444,7 @@ namespace Untitled_Project_X_Config
         }
         #endregion
 
-        #region "Public Color Properties"
+        #region "Public Derived Properties"
         public System.Windows.Media.Brush UnXVersionColor
         {
             get
@@ -401,14 +467,40 @@ namespace Untitled_Project_X_Config
             }
         }
 
-        public System.Windows.Media.Brush GamepadIconsColor
+        public System.Windows.Media.Brush GamepadColor
         {
             get
             {
-                if (File.Exists(GamePath + Path.AltDirectorySeparatorChar + _ResourceRoot + Path.AltDirectorySeparatorChar + _GamepadIcons))
+                if (Directory.Exists(GamePath + Path.AltDirectorySeparatorChar + _ResourceRoot + Path.AltDirectorySeparatorChar + _Gamepad))
                     return System.Windows.Media.Brushes.Green;
                 else
                     return System.Windows.Media.Brushes.Red;
+            }
+        }
+
+        public List<int> GamepadSlots
+        {
+            get
+            {
+                return new List<int>(new int[] { -1, 0, 1, 2, 3});
+            }
+        }
+
+        public List<string> Gamepads
+        {
+            get
+            {
+                if (!Directory.Exists(GamePath + Path.AltDirectorySeparatorChar + _ResourceRoot + Path.AltDirectorySeparatorChar + "gamepads"))
+                    return new List<string>(new string[] { "Could not find \"gamepads\" directory. Resource Root likely invalid." });
+
+                var directories = new List<string>();
+                foreach (var dir in Directory.GetDirectories(GamePath + Path.AltDirectorySeparatorChar + _ResourceRoot + Path.AltDirectorySeparatorChar + "gamepads"))
+                {
+                    var di = new DirectoryInfo(dir);
+                    directories.Add(di.Name);
+                    di = null;
+                }
+                return directories;
             }
         }
         #endregion
@@ -435,7 +527,7 @@ namespace Untitled_Project_X_Config
             sb.AppendLine(string.Format("ResourceRoot={0}", _ResourceRoot.ToString()));
             sb.Append(string.Format("Dump={0}", _Dump.ToString()));
             sb.Append(string.Format("Inject={0}", _Inject.ToString()));
-            sb.AppendLine(string.Format("GamepadIcons={0}", _GamepadIcons.ToString()));
+            sb.AppendLine(string.Format("GamepadIcons={0}", _Gamepad.ToString()));
 
             sb.AppendLine("[UnX.Input]");
             sb.AppendLine(string.Format("ManageCursor={0}", _ManageCursor.ToString()));
@@ -455,33 +547,37 @@ namespace Untitled_Project_X_Config
             return sb.ToString();
         }
 
-        public void SaveValues()
+        #region "IniInfo Attribute"
+        private string GetKey(string Property)
         {
-            if (ConfigFile == null)
-                ConfigFile = new Ini.IniFile(IniPath);
-
-            // UnX.Display
-            ConfigFile.Write("DisableDPIScaling", _DisableDPIScaling.ToString().ToLower(), "UnX.Display");
-
-            // UnX.Render
-            ConfigFile.Write("FlipMode", _FlipMode.ToString().ToLower(), "UnX.Render");
-
-            // UnX.Textures
-            ConfigFile.Write("ResourceRoot", _ResourceRoot.ToString(), "UnX.Textures");
-            ConfigFile.Write("Dump", _Dump.ToString().ToLower(), "UnX.Textures");
-            ConfigFile.Write("Inject", _Inject.ToString().ToLower(), "UnX.Textures");
-            ConfigFile.Write("GamepadIcons", _GamepadIcons.ToString(), "UnX.Textures");
-
-            // UnX.Input
-            ConfigFile.Write("ManageCursor", _ManageCursor.ToString().ToLower(), "UnX.Input");
-            ConfigFile.Write("CursorTimeout", _CursorTimeout.ToString("F1"), "UnX.Input");
-            ConfigFile.Write("GamepadSlot", _GamepadSlot.ToString(), "UnX.Input");
-            ConfigFile.Write("KeysActivateCursor", _KeysActivateCursor.ToString().ToLower(), "UnX.Input");
-
-            // UnX.Language
-            ConfigFile.Write("Voice", AbbreviationAttribute.Get(_Voice), "UnX.Language");
-            ConfigFile.Write("SoundEffects", AbbreviationAttribute.Get(_SoundEffects), "UnX.Language");
-            ConfigFile.Write("Video", AbbreviationAttribute.Get(_Video), "UnX.Language");
+            var prop = typeof(UnXIni).GetProperty(Property);
+            if (prop == null) return string.Empty;
+            var attr = prop.GetCustomAttribute<IniInfo>();
+            if (attr == null) return string.Empty;
+            return attr.Key;
         }
+
+        private string GetSection(string Property)
+        {
+            var prop = typeof(UnXIni).GetProperty(Property);
+            if (prop == null) return string.Empty;
+            var attr = prop.GetCustomAttribute<IniInfo>();
+            if (attr == null) return string.Empty;
+            return attr.Section;
+        }
+
+        [AttributeUsage(AttributeTargets.Property)]
+        private sealed class IniInfo : Attribute
+        {
+            public string Key { get; set; }
+            public string Section { get; set; }
+
+            public IniInfo(string Key, string Section)
+            {
+                this.Key = Key;
+                this.Section = Section;
+            }
+        }
+        #endregion
     }
 }

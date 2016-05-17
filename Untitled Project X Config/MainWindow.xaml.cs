@@ -220,12 +220,12 @@ namespace Untitled_Project_X_Config
 
             }
 
-            if (!File.Exists(config.GamePath + Path.AltDirectorySeparatorChar + config.ResourceRoot + Path.AltDirectorySeparatorChar + config.GamepadIcons))
+            /*if (!File.Exists(config.GamePath + Path.AltDirectorySeparatorChar + config.ResourceRoot + Path.AltDirectorySeparatorChar + config.GamepadIcons))
             {
                 var dlgResult = MessageBox.Show(string.Format("Could not find the file \"{0}\" in \"{1}\"." + Environment.NewLine + Environment.NewLine +
                     "Do you wish to save this value anyways? A bad value may lead to unpredictable behavior.", config.GamepadIcons, config.ResourceRoot), "Untitled Project X Config", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
                 if (dlgResult == MessageBoxResult.No) return;
-            }
+            }*/
 
             var result = MessageBox.Show("Do you want to make a backup of UnX.ini? This is recommended, especially if you are not on the supported version of Untitled Project X.", "Untitled Project X Config", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Yes);
             if (result == MessageBoxResult.Yes)
@@ -254,23 +254,6 @@ namespace Untitled_Project_X_Config
             if (result == MessageBoxResult.No) return;
 
             config.ReloadValues();
-        }
-
-        private void BrowseGamepadIcons_Click(object sender, RoutedEventArgs e)
-        {
-            using (System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog())
-            {
-                ofd.InitialDirectory = config.GamePath + Path.DirectorySeparatorChar + config.ResourceRoot;
-                ofd.Multiselect = false;
-                ofd.Filter = "DDS Files|*.dds";
-                ofd.ShowDialog(this.GetIWin32Window());
-                if (File.Exists(ofd.FileName))
-                {
-                    var fi = new FileInfo(ofd.FileName);
-                    config.GamepadIcons = fi.Name;
-                    fi = null;
-                }
-            }
         }
     }
 }

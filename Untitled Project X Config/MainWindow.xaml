@@ -82,6 +82,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -108,6 +110,12 @@
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,2.5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=GamepadSlot, Converter={StaticResource PropertyDescriptionConverter}}">Gamepad Slot</TextBlock>
                     <ComboBox x:Name="cmbMSAAQuality" Grid.Row="3" Grid.Column="1" Margin="2.5,2.5,5,2.5" IsEditable="False" ItemsSource="{Binding GamepadSlots}" SelectedValue="{Binding GamepadSlot}" ToolTip="{Binding ConverterParameter=GamepadSlot, Converter={StaticResource PropertyDescriptionConverter}}"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=FourFingerSalute, Converter={StaticResource PropertyDescriptionConverter}}">Four Finger Salute</TextBlock>
+                    <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding FourFingerSalute, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=FourFingerSalute, Converter={StaticResource PropertyDescriptionConverter}}" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,2.5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=SpecialKeys, Converter={StaticResource PropertyDescriptionConverter}}">Special Keys</TextBlock>
+                    <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding SpecialKeys, Mode=TwoWay}" Margin="2.5,5,5,2.5" VerticalAlignment="Center" ToolTip="{Binding ConverterParameter=SpecialKeys, Converter={StaticResource PropertyDescriptionConverter}}" />
                 </Grid>
             </TabItem>
             <TabItem Header="Audio">

@@ -217,7 +217,6 @@ namespace Untitled_Project_X_Config
                 var dlgResult = MessageBox.Show(string.Format("Could not find the folder \"{0}\" in the Game Path." + Environment.NewLine + Environment.NewLine +
                     "Do you wish to save this value anyways? A bad value may lead to unpredictable behavior.", config.ResourceRoot), "Untitled Project X Config", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
                 if (dlgResult == MessageBoxResult.No) return;
-
             }
 
             if (!Directory.Exists(config.GamePath + Path.AltDirectorySeparatorChar + config.ResourceRoot + Path.AltDirectorySeparatorChar + "gamepads" + Path.AltDirectorySeparatorChar + config.Gamepad))

@@ -48,6 +48,8 @@ namespace Untitled_Project_X_Config
         private float _CursorTimeout = 0.0f;
         private int _GamepadSlot = -1;
         private bool _KeysActivateCursor = false;
+        private bool _FourFingerSalute = true;
+        private bool _SpecialKeys = true;
 
         // UnX.Language
         private UnXLanguageCodes _Voice = UnXLanguageCodes.JP;
@@ -211,6 +213,32 @@ namespace Untitled_Project_X_Config
             }
         }
 
+        [Description("Enable ability to open the Escape Menu with gamepad. Recommended: Checked")]
+        [IniInfo("FourFingerSalute", "UnX.Input")]
+        public bool FourFingerSalute
+        {
+            get { return _FourFingerSalute; }
+            set
+            {
+                if (_FourFingerSalute == value) return;
+                _FourFingerSalute = value;
+                OnPropertyChanged();
+            }
+        }
+
+        [Description("Enable ability to toggle boosters with gamepad. Recommended: Checked")]
+        [IniInfo("SpecialKeys", "UnX.Input")]
+        public bool SpecialKeys
+        {
+            get { return _SpecialKeys; }
+            set
+            {
+                if (_SpecialKeys == value) return;
+                _SpecialKeys = value;
+                OnPropertyChanged();
+            }
+        }
+
         // UnX.Language
         [Description("General Voiceover Language")]
         [IniInfo("Voice", "UnX.Language")]
@@ -357,6 +385,8 @@ namespace Untitled_Project_X_Config
             CursorTimeout = GetIniFloatValue(GetKey(nameof(CursorTimeout)), GetSection(nameof(CursorTimeout)), 0.5f);
             GamepadSlot = GetIniIntegerValue(GetKey(nameof(GamepadSlot)), GetSection(nameof(GamepadSlot)), -1);
             KeysActivateCursor = GetIniBooleanValue(GetKey(nameof(KeysActivateCursor)), GetSection(nameof(KeysActivateCursor)), false);
+            FourFingerSalute = GetIniBooleanValue(GetKey(nameof(FourFingerSalute)), GetSection(nameof(FourFingerSalute)), true);
+            SpecialKeys = GetIniBooleanValue(GetKey(nameof(SpecialKeys)), GetSection(nameof(SpecialKeys)), true);
 
             // UnX.Language
             Voice = GetIniEnumValue<UnXLanguageCodes>(GetKey(nameof(Voice)), GetSection(nameof(Voice)), UnXLanguageCodes.JP);
@@ -391,6 +421,8 @@ namespace Untitled_Project_X_Config
             ConfigFile.Write(GetKey(nameof(CursorTimeout)), GetIniFormattedString(CursorTimeout), GetSection(nameof(CursorTimeout)));
             ConfigFile.Write(GetKey(nameof(GamepadSlot)), GetIniFormattedString(GamepadSlot), GetSection(nameof(GamepadSlot)));
             ConfigFile.Write(GetKey(nameof(KeysActivateCursor)), GetIniFormattedString(KeysActivateCursor), GetSection(nameof(KeysActivateCursor)));
+            ConfigFile.Write(GetKey(nameof(FourFingerSalute)), GetIniFormattedString(FourFingerSalute), GetSection(nameof(FourFingerSalute)));
+            ConfigFile.Write(GetKey(nameof(SpecialKeys)), GetIniFormattedString(SpecialKeys), GetSection(nameof(SpecialKeys)));
 
             // UnX.Language
             ConfigFile.Write(GetKey(nameof(Voice)), GetIniFormattedString(Voice), GetSection(nameof(Voice)));
@@ -536,6 +568,7 @@ namespace Untitled_Project_X_Config
 
             sb.AppendLine("[UnX.Display]");
             sb.AppendLine(string.Format("DisableDPIScaling={0}", _DisableDPIScaling.ToString()));
+            sb.AppendLine(string.Format("EnableFullscreen={0}", _EnableFullscreen.ToString()));
 
             sb.AppendLine("[UnX.Render]");
             sb.AppendLine(string.Format("FlipMode={0}", _FlipMode.ToString()));
@@ -544,13 +577,15 @@ namespace Untitled_Project_X_Config
             sb.AppendLine(string.Format("ResourceRoot={0}", _ResourceRoot.ToString()));
             sb.Append(string.Format("Dump={0}", _Dump.ToString()));
             sb.Append(string.Format("Inject={0}", _Inject.ToString()));
-            sb.AppendLine(string.Format("GamepadIcons={0}", _Gamepad.ToString()));
+            sb.AppendLine(string.Format("Gamepad={0}", _Gamepad.ToString()));
 
             sb.AppendLine("[UnX.Input]");
             sb.AppendLine(string.Format("ManageCursor={0}", _ManageCursor.ToString()));
             sb.AppendLine(string.Format("CursorTimeout={0}", _CursorTimeout.ToString("F1")));
             sb.AppendLine(string.Format("GamepadSlot={0}", _GamepadSlot.ToString()));
             sb.AppendLine(string.Format("KeysActivateCursor={0}", _KeysActivateCursor.ToString()));
+            sb.AppendLine(string.Format("FourFingerSalute={0}", _FourFingerSalute.ToString()));
+            sb.AppendLine(string.Format("SpecialKeys={0}", _SpecialKeys.ToString()));
 
             sb.AppendLine("[UnX.Language]");
             sb.AppendLine(string.Format("Voice={0}", _Voice.ToString()));
